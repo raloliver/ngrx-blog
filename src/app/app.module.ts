@@ -9,6 +9,7 @@ import {environment} from '@env/environment';
 import {AppRoutingModule} from '@app/app-routing.module';
 import {AppComponent} from '@app/app.component';
 import {AuthModule} from '@app/auth/auth.module';
+import {EffectsModule} from '@ngrx/effects';
 
 @NgModule({
   declarations: [AppComponent],
@@ -22,6 +23,7 @@ import {AuthModule} from '@app/auth/auth.module';
       maxAge: 25,
       logOnly: environment.production,
     }),
+    EffectsModule.forRoot([]),
   ],
   providers: [],
   bootstrap: [AppComponent],

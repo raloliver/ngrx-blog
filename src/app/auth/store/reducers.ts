@@ -1,7 +1,7 @@
 import {createReducer, on, Action} from '@ngrx/store';
 
 import {AuthStateInterface} from '@app/auth/types/authState.interface';
-import {signupAction} from '@app/auth/store/actions';
+import {signupAction} from '@app/auth/store/actions/signup.action';
 
 const initialState: AuthStateInterface = {
   isSent: false,

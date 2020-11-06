@@ -4,8 +4,9 @@ import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {select, Store} from '@ngrx/store';
 import {Observable} from 'rxjs';
 
-import {signupAction} from '@app/auth/store/actions';
+import {signupAction} from '@app/auth/store/actions/signup.action';
 import {isSentSelector} from '@app/auth/store/selectors';
+import {SignupRequestInterface} from '@app/auth/types/signupRequest.interface';
 
 @Component({
   selector: 'nb-signup',
@@ -37,6 +38,9 @@ export class SignupComponent implements OnInit {
 
   onSubmit() {
     console.log(this.form.value);
-    this.store.dispatch(signupAction(this.form.value));
+    const request: SignupRequestInterface = {
+      user: this.form.value,
+    };
+    this.store.dispatch(signupAction({request}));
   }
 }
