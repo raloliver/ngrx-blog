@@ -1,8 +1,11 @@
 import {Component, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
-import {Store} from '@ngrx/store';
+
+import {select, Store} from '@ngrx/store';
+import {Observable} from 'rxjs';
 
 import {signupAction} from '@app/auth/store/actions';
+import {isSentSelector} from '@app/auth/store/selectors';
 
 @Component({
   selector: 'nb-register',
@@ -11,11 +14,13 @@ import {signupAction} from '@app/auth/store/actions';
 })
 export class RegisterComponent implements OnInit {
   form: FormGroup;
+  isSent$: Observable<boolean>;
 
   constructor(private fb: FormBuilder, private store: Store) {}
 
   ngOnInit(): void {
     this.initializeForm();
+    this.initializeValues();
   }
 
   initializeForm(): void {
@@ -24,6 +29,10 @@ export class RegisterComponent implements OnInit {
       email: ['', Validators.required],
       password: ['', Validators.required],
     });
+  }
+
+  initializeValues(): void {
+    this.isSent$ = this.store.pipe(select(isSentSelector));
   }
 
   onSubmit() {

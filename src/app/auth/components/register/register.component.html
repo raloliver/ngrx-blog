@@ -6,7 +6,7 @@
                 <p class="text-xs-center">
                     <a [routerLink]="['/login']">Have an account?</a>
                 </p>
-                Errors handle
+                Errors handle {{isSent$ | async}}
                 <form [formGroup]="form" (ngSubmit)="onSubmit()">
                     <fieldset>
                         <fieldset class="form-group">
@@ -26,7 +26,8 @@
                                 placeholder="Password">
                         </fieldset>
                     </fieldset>
-                    <button type="submit" class="btn btn-lg btn-primary pull-xs-right" [disabled]="form.invalid">
+                    <button type="submit" class="btn btn-lg btn-primary pull-xs-right"
+                        [disabled]="form.invalid || (isSent$ | async)">
                         Sign up
                     </button>
                 </form>
