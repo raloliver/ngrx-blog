@@ -8,11 +8,11 @@ import {signupAction} from '@app/auth/store/actions';
 import {isSentSelector} from '@app/auth/store/selectors';
 
 @Component({
-  selector: 'nb-register',
-  templateUrl: './register.component.html',
-  styleUrls: ['./register.component.scss'],
+  selector: 'nb-signup',
+  templateUrl: './signup.component.html',
+  styleUrls: ['./signup.component.scss'],
 })
-export class RegisterComponent implements OnInit {
+export class SignupComponent implements OnInit {
   form: FormGroup;
   isSent$: Observable<boolean>;
 

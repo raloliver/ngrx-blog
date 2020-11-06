@@ -5,23 +5,25 @@ import {RouterModule, Routes} from '@angular/router';
 
 import {StoreModule} from '@ngrx/store';
 
-import {RegisterComponent} from '@app/auth/components/register/register.component';
+import {SignupComponent} from '@app/auth/components/signup/signup.component';
 import {reducers} from '@app/auth/store/reducers';
+import {AuthService} from '@app/auth/services/auth.service';
 
 const routes: Routes = [
   {
     path: 'signup',
-    component: RegisterComponent,
+    component: SignupComponent,
   },
 ];
 
 @NgModule({
-  declarations: [RegisterComponent],
+  declarations: [SignupComponent],
   imports: [
     CommonModule,
     ReactiveFormsModule,
     RouterModule.forChild(routes),
     StoreModule.forFeature('auth', reducers),
   ],
+  providers: [AuthService],
 })
 export class AuthModule {}
