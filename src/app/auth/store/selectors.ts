@@ -13,3 +13,8 @@ export const isSentSelector = createSelector(
   authFeatureSelector,
   (authState: AuthStateInterface) => authState.isSent
 );
+
+export const validationErrorSelector = createSelector(
+  authFeatureSelector,
+  (authState: AuthStateInterface) => authState.validationError
+);

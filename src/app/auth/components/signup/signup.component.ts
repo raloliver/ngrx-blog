@@ -5,8 +5,12 @@ import {select, Store} from '@ngrx/store';
 import {Observable} from 'rxjs';
 
 import {signupAction} from '@app/auth/store/actions/signup.action';
-import {isSentSelector} from '@app/auth/store/selectors';
+import {
+  isSentSelector,
+  validationErrorSelector,
+} from '@app/auth/store/selectors';
 import {SignupRequestInterface} from '@app/auth/types/signupRequest.interface';
+import {ApiErrorInterface} from '@shared/types/apiError.interface';
 
 @Component({
   selector: 'nb-signup',
@@ -16,6 +20,7 @@ import {SignupRequestInterface} from '@app/auth/types/signupRequest.interface';
 export class SignupComponent implements OnInit {
   form: FormGroup;
   isSent$: Observable<boolean>;
+  apiError$: Observable<ApiErrorInterface | null>;
 
   constructor(private fb: FormBuilder, private store: Store) {}
 
@@ -34,6 +39,7 @@ export class SignupComponent implements OnInit {
 
   initializeValues(): void {
     this.isSent$ = this.store.pipe(select(isSentSelector));
+    this.apiError$ = this.store.pipe(select(validationErrorSelector));
   }
 
   onSubmit() {

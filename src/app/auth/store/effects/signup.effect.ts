@@ -11,6 +11,7 @@ import {
 } from '@app/auth/store/actions/signup.action';
 import {AuthService} from '@app/auth/services/auth.service';
 import {CurrentUserInterface} from '@shared/types/currentUser.interface';
+import {HttpErrorResponse} from '@angular/common/http';
 
 @Injectable()
 export class SignupEffect {
@@ -28,7 +29,9 @@ export class SignupEffect {
             )
           );
       }),
-      catchError(() => of(signupErrorAction()))
+      catchError((errorResponse: HttpErrorResponse) =>
+        of(signupErrorAction({errors: errorResponse.error.errors}))
+      )
     )
   );
 }

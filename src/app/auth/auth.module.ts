@@ -10,6 +10,7 @@ import {SignupComponent} from '@app/auth/components/signup/signup.component';
 import {reducers} from '@app/auth/store/reducers';
 import {AuthService} from '@app/auth/services/auth.service';
 import {SignupEffect} from '@app/auth/store/effects/signup.effect';
+import {ErrorMessageModule} from '@shared/modules/error-message/error-message.module';
 
 const routes: Routes = [
   {
@@ -26,6 +27,7 @@ const routes: Routes = [
     RouterModule.forChild(routes),
     StoreModule.forFeature('auth', reducers),
     EffectsModule.forFeature([SignupEffect]),
+    ErrorMessageModule,
   ],
   providers: [AuthService],
 })
