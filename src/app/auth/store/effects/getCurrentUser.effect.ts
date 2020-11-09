@@ -11,16 +11,25 @@ import {
 } from '@app/auth/store/actions/currentUser.action';
 import {AuthService} from '@app/auth/services/auth.service';
 import {CurrentUserInterface} from '@shared/types/currentUser.interface';
-import {HttpErrorResponse} from '@angular/common/http';
+import {PersistanceService} from '@shared/services/persistance.service';
 
 @Injectable()
 export class GetCurrentUserEffect {
-  constructor(private actions$: Actions, private authService: AuthService) {}
+  constructor(
+    private actions$: Actions,
+    private authService: AuthService,
+    private persistanceService: PersistanceService
+  ) {}
 
   signup$ = createEffect(() =>
     this.actions$.pipe(
       ofType(getCurrentUserAction),
       switchMap(() => {
+        const token = this.persistanceService.get('AUTH_TOKEN');
+        if (!token) {
+          return of(getCurrentUserErrorAction() );
+        }
+
         return this.authService.getCurrentUser().pipe(
           map((currentUser: CurrentUserInterface) => {
             return getCurrentUserSuccessAction({currentUser});
