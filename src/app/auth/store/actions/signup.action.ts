@@ -3,7 +3,7 @@ import {createAction, props} from '@ngrx/store';
 import {ActionTypes} from '@app/auth/store/actionTypes';
 import {SignupRequestInterface} from '@app/auth/types/signupRequest.interface';
 import {CurrentUserInterface} from '@shared/types/currentUser.interface';
-import {ApiErrosInterface} from '@shared/types/apiErros.interface';
+import {ApiErrorInterface} from '@shared/types/apiError.interface';
 
 export const signupAction = createAction(
   ActionTypes.SIGNUP,
@@ -12,7 +12,7 @@ export const signupAction = createAction(
 
 export const signupErrorAction = createAction(
   ActionTypes.SIGNUP_ERROR,
-  props<{errors: ApiErrosInterface}>()
+  props<{errors: ApiErrorInterface}>()
 );
 
 export const signupSuccessAction = createAction(
