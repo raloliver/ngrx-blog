@@ -6,17 +6,17 @@ import {catchError, map, switchMap, tap} from 'rxjs/operators';
 import {of} from 'rxjs';
 
 import {
-  signupAction,
-  signupErrorAction,
-  signupSuccessAction,
-} from '@app/auth/store/actions/signup.action';
+  loginAction,
+  loginErrorAction,
+  loginSuccessAction,
+} from '@app/auth/store/actions/login.action';
 import {AuthService} from '@app/auth/services/auth.service';
 import {CurrentUserInterface} from '@shared/types/currentUser.interface';
 import {HttpErrorResponse} from '@angular/common/http';
 import {PersistanceService} from '@shared/services/persistance.service';
 
 @Injectable()
-export class SignupEffect {
+export class LoginEffect {
   constructor(
     private actions$: Actions,
     private authService: AuthService,
@@ -26,18 +26,17 @@ export class SignupEffect {
 
   signup$ = createEffect(() =>
     this.actions$.pipe(
-      ofType(signupAction),
+      ofType(loginAction),
       switchMap(({request}) => {
-        return this.authService.signup(request).pipe(
+        return this.authService.login(request).pipe(
           map((currentUser: CurrentUserInterface) => {
-            // avoit this inside of effect window.localStorage.setItem('AUTH_TOKEN', currentUser.token);
             this.persistanceService.set('AUTH_TOKEN', currentUser.token);
-            return signupSuccessAction({currentUser});
+            return loginSuccessAction({currentUser});
           })
         );
       }),
       catchError((errorResponse: HttpErrorResponse) =>
-        of(signupErrorAction({errors: errorResponse.error.errors}))
+        of(loginErrorAction({errors: errorResponse.error.errors}))
       )
     )
   );
@@ -45,7 +44,7 @@ export class SignupEffect {
   redirectAfterSubmit$ = createEffect(
     () =>
       this.actions$.pipe(
-        ofType(signupSuccessAction),
+        ofType(loginSuccessAction),
         tap(() => {
           this.router.navigateByUrl('/');
         })

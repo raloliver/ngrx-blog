@@ -7,6 +7,7 @@ import {map} from 'rxjs/operators';
 import {environment} from '@env/environment';
 import {SignupRequestInterface} from '@app/auth/types/signupRequest.interface';
 import {AuthResponseInterface} from '@app/auth/types/authResponse.interface';
+import {LoginRequestInterface} from '@app/auth/types/loginRequest.interface';
 import {CurrentUserInterface} from '@shared/types/currentUser.interface';
 
 @Injectable()
@@ -15,9 +16,20 @@ export class AuthService {
 
   constructor(private http: HttpClient) {}
 
+  getUser(response: AuthResponseInterface): CurrentUserInterface {
+    return response.user;
+  }
+
   signup(data: SignupRequestInterface): Observable<CurrentUserInterface> {
     return this.http
       .post<AuthResponseInterface>(this.url + '/users', data)
-      .pipe(map((response: AuthResponseInterface) => response.user));
+      .pipe(map(this.getUser));
+  }
+
+  login(data: LoginRequestInterface): Observable<CurrentUserInterface> {
+    const url = environment.apiURL + '/users/login';
+    return this.http
+      .post<AuthResponseInterface>(url, data)
+      .pipe(map(this.getUser));
   }
 }

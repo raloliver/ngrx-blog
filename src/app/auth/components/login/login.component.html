@@ -1,0 +1,31 @@
+<div class="auth-page">
+    <div class="container page">
+        <div class="row">
+            <div class="col-md-6 offset-md-3 col-xs-12">
+                <h1 class="text-xs center">Sign In</h1>
+                <p class="text-xs-center">
+                    <a [routerLink]="['/signup']">Need an account?</a>
+                </p>
+                <nb-error-message *ngIf="apiError$ | async" [messages]="apiError$ | async"></nb-error-message>
+                <form [formGroup]="form" (ngSubmit)="onSubmit()">
+                    <fieldset>
+                        <fieldset class="form-group">
+                            <input formControlName="email" type="email" class="form-control form-control-lg"
+                                placeholder="Email">
+                        </fieldset>
+                    </fieldset>
+                    <fieldset>
+                        <fieldset class="form-group">
+                            <input formControlName="password" type="password" class="form-control form-control-lg"
+                                placeholder="Password">
+                        </fieldset>
+                    </fieldset>
+                    <button type="submit" class="btn btn-lg btn-primary pull-xs-right"
+                        [disabled]="form.invalid || (isSent$ | async)">
+                        Sign in
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

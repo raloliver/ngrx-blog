@@ -4,20 +4,20 @@ import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {select, Store} from '@ngrx/store';
 import {Observable} from 'rxjs';
 
-import {signupAction} from '@app/auth/store/actions/signup.action';
+import {loginAction} from '@app/auth/store/actions/login.action';
 import {
   isSentSelector,
   validationErrorSelector,
 } from '@app/auth/store/selectors';
-import {SignupRequestInterface} from '@app/auth/types/signupRequest.interface';
+import {LoginRequestInterface} from '@app/auth/types/loginRequest.interface';
 import {ApiErrorInterface} from '@shared/types/apiError.interface';
 
 @Component({
-  selector: 'nb-signup',
-  templateUrl: './signup.component.html',
-  styleUrls: ['./signup.component.scss'],
+  selector: 'nb-login',
+  templateUrl: './login.component.html',
+  styleUrls: ['./login.component.scss'],
 })
-export class SignupComponent implements OnInit {
+export class LoginComponent implements OnInit {
   form: FormGroup;
   isSent$: Observable<boolean>;
   apiError$: Observable<ApiErrorInterface | null>;
@@ -31,7 +31,6 @@ export class SignupComponent implements OnInit {
 
   initializeForm(): void {
     this.form = this.fb.group({
-      username: ['', Validators.required],
       email: ['', Validators.required],
       password: ['', Validators.required],
     });
@@ -43,9 +42,9 @@ export class SignupComponent implements OnInit {
   }
 
   onSubmit() {
-    const request: SignupRequestInterface = {
+    const request: LoginRequestInterface = {
       user: this.form.value,
     };
-    this.store.dispatch(signupAction({request}));
+    this.store.dispatch(loginAction({request}));
   }
 }

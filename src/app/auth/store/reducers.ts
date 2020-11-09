@@ -6,6 +6,11 @@ import {
   signupErrorAction,
   signupSuccessAction,
 } from '@app/auth/store/actions/signup.action';
+import {
+  loginAction,
+  loginErrorAction,
+  loginSuccessAction,
+} from '@app/auth/store/actions/login.action';
 
 const initialState: AuthStateInterface = {
   isSent: false,
@@ -34,6 +39,31 @@ const authReducer = createReducer(
   ),
   on(
     signupSuccessAction,
+    (state, action): AuthStateInterface => ({
+      ...state,
+      isSent: false,
+      currentUser: action.currentUser,
+      isLogged: true,
+    })
+  ),
+  on(
+    loginAction,
+    (state): AuthStateInterface => ({
+      ...state,
+      isSent: true,
+      validationError: null,
+    })
+  ),
+  on(
+    loginErrorAction,
+    (state, action): AuthStateInterface => ({
+      ...state,
+      isSent: false,
+      validationError: action.errors,
+    })
+  ),
+  on(
+    loginSuccessAction,
     (state, action): AuthStateInterface => ({
       ...state,
       isSent: false,
