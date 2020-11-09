@@ -3,13 +3,14 @@ import {NgModule} from '@angular/core';
 import {HttpClientModule} from '@angular/common/http';
 
 import {StoreModule} from '@ngrx/store';
+import {EffectsModule} from '@ngrx/effects';
 import {StoreDevtoolsModule} from '@ngrx/store-devtools';
 
 import {environment} from '@env/environment';
 import {AppRoutingModule} from '@app/app-routing.module';
 import {AppComponent} from '@app/app.component';
 import {AuthModule} from '@app/auth/auth.module';
-import {EffectsModule} from '@ngrx/effects';
+import {NavbarModule} from '@shared/modules/navbar/navbar/navbar.module';
 
 @NgModule({
   declarations: [AppComponent],
@@ -17,6 +18,7 @@ import {EffectsModule} from '@ngrx/effects';
     BrowserModule,
     HttpClientModule,
     AuthModule,
+    NavbarModule,
     AppRoutingModule,
     StoreModule.forRoot({}),
     StoreDevtoolsModule.instrument({
