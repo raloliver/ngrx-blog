@@ -1,6 +1,6 @@
 import {BrowserModule} from '@angular/platform-browser';
 import {NgModule} from '@angular/core';
-import {HttpClientModule} from '@angular/common/http';
+import {HttpClientModule, HTTP_INTERCEPTORS} from '@angular/common/http';
 
 import {StoreModule} from '@ngrx/store';
 import {EffectsModule} from '@ngrx/effects';
@@ -11,6 +11,8 @@ import {AppRoutingModule} from '@app/app-routing.module';
 import {AppComponent} from '@app/app.component';
 import {AuthModule} from '@app/auth/auth.module';
 import {NavbarModule} from '@shared/modules/navbar/navbar/navbar.module';
+import {PersistanceService} from '@shared/services/persistance.service';
+import {AuthInterceptor} from '@shared/services/auth.interceptor';
 
 @NgModule({
   declarations: [AppComponent],
@@ -27,7 +29,14 @@ import {NavbarModule} from '@shared/modules/navbar/navbar/navbar.module';
     }),
     EffectsModule.forRoot([]),
   ],
-  providers: [],
+  providers: [
+    PersistanceService,
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: AuthInterceptor,
+      multi: true,
+    },
+  ],
   bootstrap: [AppComponent],
 })
 export class AppModule {}
