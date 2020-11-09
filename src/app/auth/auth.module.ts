@@ -12,6 +12,7 @@ import {reducers} from '@app/auth/store/reducers';
 import {AuthService} from '@app/auth/services/auth.service';
 import {SignupEffect} from '@app/auth/store/effects/signup.effect';
 import {LoginEffect} from '@app/auth/store/effects/login.effect';
+import {GetCurrentUserEffect} from '@app/auth/store/effects/getCurrentUser.effect';
 import {ErrorMessageModule} from '@shared/modules/error-message/error-message.module';
 import {PersistanceService} from '@shared/services/persistance.service';
 
@@ -33,7 +34,7 @@ const routes: Routes = [
     ReactiveFormsModule,
     RouterModule.forChild(routes),
     StoreModule.forFeature('auth', reducers),
-    EffectsModule.forFeature([SignupEffect, LoginEffect]),
+    EffectsModule.forFeature([SignupEffect, LoginEffect, GetCurrentUserEffect]),
     ErrorMessageModule,
   ],
   providers: [AuthService, PersistanceService],

@@ -5,4 +5,7 @@ export enum ActionTypes {
   LOGIN = '[Auth] Login',
   LOGIN_ERROR = '[Auth] Login error',
   LOGIN_SUCCESS = '[Auth] Login success',
+  GET_CURRENT_USER = '[Auth] Get current user',
+  GET_CURRENT_USER_ERROR = '[Auth] Get current user error',
+  GET_CURRENT_USER_SUCCESS = '[Auth] Get current user success',
 }

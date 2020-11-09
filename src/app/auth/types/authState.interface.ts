@@ -6,4 +6,5 @@ export interface AuthStateInterface {
   currentUser: CurrentUserInterface | null;
   isLogged: boolean | null;
   validationError: ApiErrorInterface | null;
+  isLoading: boolean | null;
 }
